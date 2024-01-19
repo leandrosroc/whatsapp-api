@@ -1,0 +1,15 @@
+version: '3'
+services:
+  whatsapp-api-mongo:
+    image: mongo
+    container_name: whatsapp-api-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    networks:
+      - whatsapp-api-network
+networks:
+  whatsapp-api-network:
+    driver: bridge

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  whatsapp-api-rabbitmq:
+    image: "rabbitmq:management"
+    container_name: whatsapp-api-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"  # Porta padrão para conexão AMQP
+      - "15672:15672"  # Porta para o RabbitMQ Management Plugin (interface web)
+    networks:
+      - whatsapp-api-network
+networks:
+  whatsapp-api-network:
+    driver: bridge
