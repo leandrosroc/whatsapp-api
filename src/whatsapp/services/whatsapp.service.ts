@@ -2615,13 +2615,23 @@ export class WAStartupService {
       } else {
         jid = !jid.startsWith('+') ? `+${jid}` : jid;
         const verify = await this.client.onWhatsApp(jid);
-
+        const query: ContactQuery = {
+          where: {
+            owner: this.instance.name,
+            id: jid.startsWith('+') ? jid.substring(1) : jid,
+          },
+        };
+        const contacts: ContactRaw[] = await this.repository.contact.find(query);
+        let firstContactFound;
+        if (contacts.length > 0) {
+          firstContactFound = contacts[0].pushName;
+        }
         const result = verify[0];
 
         if (!result) {
-          onWhatsapp.push(new OnWhatsAppDto(jid, false));
+          onWhatsapp.push(new OnWhatsAppDto(jid, false, firstContactFound));
         } else {
-          onWhatsapp.push(new OnWhatsAppDto(result.jid, result.exists));
+          onWhatsapp.push(new OnWhatsAppDto(result.jid, result.exists, firstContactFound));
         }
       }
     }
