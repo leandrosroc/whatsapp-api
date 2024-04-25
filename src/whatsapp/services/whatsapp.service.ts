@@ -1301,6 +1301,9 @@ export class WAStartupService {
         });
       }
 
+      this.logger.verbose('Inserting message in database');
+      await this.repository.message.insert(messagesRaw, this.instance.name, database.SAVE_DATA.NEW_MESSAGE);
+
       this.logger.verbose('Sending data to webhook in event MESSAGES_SET');
       this.sendDataWebhook(Events.MESSAGES_SET, [...messagesRaw]);
 
