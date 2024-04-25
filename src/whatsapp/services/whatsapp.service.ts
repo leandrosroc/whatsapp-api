@@ -2449,7 +2449,7 @@ export class WAStartupService {
           ? { url: data.audioMessage.audio }
           : Buffer.from(data.audioMessage.audio, 'base64'),
         ptt: true,
-        mimetype: 'audio/ogg; codecs=opus',
+        mimetype: 'audio/mp4',
       },
       { presence: 'recording', delay: data?.options?.delay },
     );
